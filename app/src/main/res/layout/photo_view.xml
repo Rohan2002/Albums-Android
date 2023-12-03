@@ -1,17 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context=".Albums">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#673AB7"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:layout_weight="0"/>
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="260dp"
-        android:layout_height="247dp"
-        tools:layout_editor_absoluteX="75dp"
-        tools:layout_editor_absoluteY="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="318dp"
         tools:srcCompat="@tools:sample/avatars" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tagTextBox"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0"
+        android:text="Tags Here"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:background="#673AB7"
+        android:textColor="@color/white"
+        android:layout_marginBottom="5dp"/>
+
+    <Button
+        android:id="@+id/addPhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="#3F51B5"
+        android:text="Add a Photo" />
+
+    <Button
+        android:id="@+id/deletePhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="#3F51B5"
+        android:text="Delete Photo" />
+
+    <Button
+        android:id="@+id/AddOrDeleteTagButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="#3F51B5"
+        android:text="Tag Photo" />
+
+    <Button
+        android:id="@+id/movePhotoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:backgroundTint="#3F51B5"
+        android:text="Move Photo" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"/>
+
+</LinearLayout>

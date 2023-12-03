@@ -13,7 +13,7 @@ public class Albums extends AppCompatActivity
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.album_view);
 
-                //Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-                //setSupportActionBar(myToolbar);
+                Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+                setSupportActionBar(myToolbar);
         }
 }
