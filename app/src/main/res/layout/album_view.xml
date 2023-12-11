@@ -1,12 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     tools:context=".Albums">
 
     <androidx.appcompat.widget.Toolbar
@@ -15,24 +10,43 @@
         android:layout_height="?attr/actionBarSize"
         android:background="#673AB7"
         android:elevation="4dp"
-        android:layout_weight="0"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        android:layout_weight="0"/>
 
     <ListView
         android:id="@+id/albumListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:layout_marginTop="0dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/addAlbum"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="65dp"
+        android:layout_marginBottom="49dp" />
 
     <Button
-        android:id="@+id/createAlbumButton"
-        android:layout_width="200dp"
-        android:layout_height="55dp"
-        android:layout_weight="0"
-        android:text="Create a New Album" />
+        android:id="@+id/addAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:text="Add Album" />
+
+    <Button
+        android:id="@+id/deleteAlbum"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/addAlbum"
+        android:text="Delete Album" />
 
 
-</LinearLayout>
+    <Button
+        android:id="@+id/renameAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/deleteAlbum"
+        android:text="Rename Album" />
+
+
+
+</RelativeLayout>
