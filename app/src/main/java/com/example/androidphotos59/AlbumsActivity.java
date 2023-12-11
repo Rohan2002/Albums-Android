@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ArrayAdapter;
 import android.widget.AdapterView;
 
 import android.os.Bundle;
@@ -22,11 +21,11 @@ import android.content.Intent;
 
 import com.example.androidphotos59.model.Album;
 import com.example.androidphotos59.model.User;
-import com.example.androidphotos59.utils.ErrorMessage;
+import com.example.androidphotos59.utils.ToastMessage;
 
 import java.util.ArrayList;
 
-public class Albums extends AppCompatActivity {
+public class AlbumsActivity extends AppCompatActivity {
     private ListView albumListView;
     private Button addAlbumButton;
     private Button deleteAlbumButton;
@@ -70,7 +69,7 @@ public class Albums extends AppCompatActivity {
                 Album album = adapter.getItem(position);
 
                 activeUser.setActiveAlbum(album); // new album
-                Intent intent = new Intent(Albums.this, CreateAlbumActivity.class);
+                Intent intent = new Intent(AlbumsActivity.this, PhotoActivity.class);
                 intent.putExtra("activeUser", activeUser);
                 startActivity(intent);
             }
@@ -118,11 +117,11 @@ public class Albums extends AppCompatActivity {
 
                         boolean addStatus = u.addAlbum(new Album(albumName));
                         if (addStatus) {
-                            ErrorMessage.showError(c, "Added album successfully!");
+                            ToastMessage.showToast(c, "Added album successfully!");
                             albumArrayList.clear();
                             albumArrayList.addAll(u.getAlbumsList());
                         } else {
-                            ErrorMessage.showError(c, "Failed to add album successfully!");
+                            ToastMessage.showToast(c, "Failed to add album successfully!");
                         }
                         dialog.dismiss();
                     }
@@ -159,11 +158,11 @@ public class Albums extends AppCompatActivity {
 
                         boolean deleteStatus = u.deleteAlbum(new Album(albumName));
                         if (deleteStatus) {
-                            ErrorMessage.showError(c, "Deleted album successfully!");
+                            ToastMessage.showToast(c, "Deleted album successfully!");
                             albumArrayList.clear();
                             albumArrayList.addAll(u.getAlbumsList());
                         } else {
-                            ErrorMessage.showError(c, "Failed to delete album successfully!");
+                            ToastMessage.showToast(c, "Failed to delete album successfully!");
                         }
                         dialog.dismiss();
                     }
@@ -203,11 +202,11 @@ public class Albums extends AppCompatActivity {
 
                         boolean updateStatus = u.updateUserAlbum(new Album(oldAlbumName), new Album(newAlbumName));
                         if (updateStatus) {
-                            ErrorMessage.showError(c, "Updated album name " + oldAlbumName + "with new album name " + newAlbumName + " successfully!");
+                            ToastMessage.showToast(c, "Updated album name " + oldAlbumName + "with new album name " + newAlbumName + " successfully!");
                             albumArrayList.clear();
                             albumArrayList.addAll(u.getAlbumsList());
                         } else {
-                            ErrorMessage.showError(c, "Failed to update album name successfully!");
+                            ToastMessage.showToast(c, "Failed to update album name successfully!");
                         }
                         dialog.dismiss();
                     }

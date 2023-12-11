@@ -5,8 +5,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import com.example.androidphotos59.utils.ErrorCode;
-import com.example.androidphotos59.utils.ErrorMessage;
+import com.example.androidphotos59.utils.ToastMessage;
 
 /**
  * This class represents the Album object.
