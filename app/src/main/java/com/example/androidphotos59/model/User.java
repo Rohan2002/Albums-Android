@@ -170,6 +170,41 @@ public class User implements Serializable {
 
         return saveUserToDisk(this);
     }
+    public boolean movePhoto(Photo photo, Album album) {
+        getUserFromDisk();
+        if(!this.activeAlbum.getPhotosInAlbum().contains(photo)){
+            return false;
+        }
+        if(!this.getAlbumsList().contains(album)){
+            return false;
+        }
+        if(!this.activeAlbum.getPhotosInAlbum().remove(photo)){
+            return false;
+        }
+        if(!album.addPhoto(photo)){
+            return false;
+        }
+        // update new album to disk
+        int indexOfNewAlbum = this.albums.indexOf(album);
+
+        if (indexOfNewAlbum == -1){
+            return false;
+        }
+        else{
+            this.albums.set(indexOfNewAlbum, album);
+        }
+        // update active album to disk
+        int indexOfActiveAlbum = this.albums.indexOf(this.activeAlbum);
+
+        if (indexOfActiveAlbum == -1){
+            return false;
+        }
+        else{
+            this.albums.set(indexOfActiveAlbum, this.activeAlbum);
+        }
+
+        return saveUserToDisk(this);
+    }
     /**
      * Helper to add a photo to User Album fields.
      *

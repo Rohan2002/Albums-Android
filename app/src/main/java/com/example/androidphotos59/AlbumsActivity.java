@@ -30,7 +30,7 @@ public class AlbumsActivity extends AppCompatActivity {
     private Button addAlbumButton;
     private Button deleteAlbumButton;
     private Button renameAlbumButton;
-    private Button openAlbumButton;
+    private Button searchAlbumsButton;
 
     private ArrayList<Album> albumArrayList;
 
@@ -50,6 +50,7 @@ public class AlbumsActivity extends AppCompatActivity {
         addAlbumButton = findViewById(R.id.addAlbum);
         deleteAlbumButton = findViewById(R.id.deleteAlbum);
         renameAlbumButton = findViewById(R.id.renameAlbum);
+        searchAlbumsButton = findViewById(R.id.searchAlbums);
 
     }
 
@@ -89,6 +90,15 @@ public class AlbumsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteAlbumModal(currActivityContext);
+            }
+        });
+
+        searchAlbumsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AlbumsActivity.this, SearchActivity.class);
+                intent.putExtra("activeUser", activeUser);
+                startActivity(intent);
             }
         });
 
