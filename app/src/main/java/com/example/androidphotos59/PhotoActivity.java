@@ -155,6 +155,10 @@ public class PhotoActivity extends AppCompatActivity {
         if (spl.length != 2) {
             return false;
         }
+        System.out.println("spl[0]: "+ spl[0] + spl[0].equalsIgnoreCase("name"));
+        if(!spl[0].equalsIgnoreCase("location") && !spl[0].equalsIgnoreCase("name")){
+            return false;
+        }
         return true;
     }
 

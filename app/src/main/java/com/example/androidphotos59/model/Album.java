@@ -85,6 +85,9 @@ public class Album implements Serializable {
         return this.getPhotosInAlbum().remove(photo);
     }
 
+    public void foo(){
+
+    }
     /**
      * Helper to return the number of photos in an album
      *
