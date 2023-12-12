@@ -35,6 +35,8 @@ public class PhotoActivity extends AppCompatActivity {
     private Button slideShowButton;
     private Button backAlbumButton;
 
+    private Album activeAlbum;
+
     private User activeUser;
     private ArrayList<Photo> photoArrayList;
     public final int REQUEST_IMAGE_OPEN = 1;
@@ -85,14 +87,6 @@ public class PhotoActivity extends AppCompatActivity {
             }
         });
 
-        this.slideShowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open the modal (dialog)
-                // openAlbumSaveModal();
-            }
-        });
-
         this.backAlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,7 +96,14 @@ public class PhotoActivity extends AppCompatActivity {
             }
         });
 
-
+        this.slideShowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PhotoActivity.this, SlideshowActivity.class);
+                intent.putExtra("activeUser", activeUser);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -245,6 +246,4 @@ public class PhotoActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }
