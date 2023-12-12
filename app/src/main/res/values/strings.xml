@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">androidPhotos59</string>
+    <string-array name="andOrChecker">
+        <item></item>
+        <item>AND</item>
+        <item>OR</item>
+    </string-array>
 </resources>
