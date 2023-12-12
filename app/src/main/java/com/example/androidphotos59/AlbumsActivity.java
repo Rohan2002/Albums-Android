@@ -32,6 +32,10 @@ public class AlbumsActivity extends AppCompatActivity {
     private Button renameAlbumButton;
     private Button openAlbumButton;
 
+    private ArrayList<Album> albumArrayList;
+
+    private User activeUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,19 +60,19 @@ public class AlbumsActivity extends AppCompatActivity {
 
         Context currActivityContext = this;
 
-        User activeUser = new User(this.getDataDir());
-        activeUser.getUserFromDisk();
+        this.activeUser = new User(this.getDataDir());
         // user's album stuff
-        ArrayList<Album> albumArrayList = activeUser.getAlbumsList();
-        ArrayAdapter<Album> adapter = new ArrayAdapter<>(currActivityContext, android.R.layout.simple_list_item_1, albumArrayList);
-        albumListView.setAdapter(adapter);
-        albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        this.albumArrayList = this.activeUser.getAlbumsList();
+        ArrayAdapter<Album> adapter = new ArrayAdapter<>(currActivityContext, android.R.layout.simple_list_item_1, this.albumArrayList);
+        this.albumListView.setAdapter(adapter);
+        this.albumListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Get the selected item from the adapter
                 Album album = adapter.getItem(position);
 
                 activeUser.setActiveAlbum(album); // new album
+
                 Intent intent = new Intent(AlbumsActivity.this, PhotoActivity.class);
                 intent.putExtra("activeUser", activeUser);
                 startActivity(intent);
@@ -77,27 +81,27 @@ public class AlbumsActivity extends AppCompatActivity {
         addAlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAlbumModal(currActivityContext, activeUser, albumArrayList);
+                addAlbumModal(currActivityContext);
             }
         });
 
         deleteAlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteAlbumModal(currActivityContext, activeUser, albumArrayList);
+                deleteAlbumModal(currActivityContext);
             }
         });
 
         renameAlbumButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                renameAlbumModal(currActivityContext, activeUser, albumArrayList);
+                renameAlbumModal(currActivityContext);
             }
         });
 
     }
 
-    private void addAlbumModal(Context c, User u, ArrayList<Album> albumArrayList) {
+    private void addAlbumModal(Context c) {
         // Inflate the custom layout for the dialog
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_layout, null);
@@ -115,11 +119,10 @@ public class AlbumsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String albumName = editTextDialogInput.getText().toString();
 
-                        boolean addStatus = u.addAlbum(new Album(albumName));
+                        boolean addStatus = activeUser.addAlbum(new Album(albumName));
                         if (addStatus) {
                             ToastMessage.showToast(c, "Added album successfully!");
-                            albumArrayList.clear();
-                            albumArrayList.addAll(u.getAlbumsList());
+                            updateAlbumList();
                         } else {
                             ToastMessage.showToast(c, "Failed to add album successfully!");
                         }
@@ -138,7 +141,7 @@ public class AlbumsActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void deleteAlbumModal(Context c, User u, ArrayList<Album> albumArrayList) {
+    private void deleteAlbumModal(Context c) {
         // Inflate the custom layout for the dialog
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_layout, null);
@@ -156,11 +159,10 @@ public class AlbumsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String albumName = editTextDialogInput.getText().toString();
 
-                        boolean deleteStatus = u.deleteAlbum(new Album(albumName));
+                        boolean deleteStatus = activeUser.deleteAlbum(new Album(albumName));
                         if (deleteStatus) {
                             ToastMessage.showToast(c, "Deleted album successfully!");
-                            albumArrayList.clear();
-                            albumArrayList.addAll(u.getAlbumsList());
+                            updateAlbumList();
                         } else {
                             ToastMessage.showToast(c, "Failed to delete album successfully!");
                         }
@@ -179,7 +181,7 @@ public class AlbumsActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void renameAlbumModal(Context c, User u, ArrayList<Album> albumArrayList) {
+    private void renameAlbumModal(Context c) {
         // Inflate the custom layout for the dialog
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_layout_two, null);
@@ -200,11 +202,10 @@ public class AlbumsActivity extends AppCompatActivity {
                         String oldAlbumName = editTextDialogInputOne.getText().toString();
                         String newAlbumName = editTextDialogInputTwo.getText().toString();
 
-                        boolean updateStatus = u.updateUserAlbum(new Album(oldAlbumName), new Album(newAlbumName));
+                        boolean updateStatus = activeUser.updateUserAlbum(new Album(oldAlbumName), new Album(newAlbumName));
                         if (updateStatus) {
                             ToastMessage.showToast(c, "Updated album name " + oldAlbumName + "with new album name " + newAlbumName + " successfully!");
-                            albumArrayList.clear();
-                            albumArrayList.addAll(u.getAlbumsList());
+                            updateAlbumList();
                         } else {
                             ToastMessage.showToast(c, "Failed to update album name successfully!");
                         }
@@ -221,5 +222,11 @@ public class AlbumsActivity extends AppCompatActivity {
         // Create and show the AlertDialog
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void updateAlbumList() {
+        activeUser.getUserFromDisk();
+        this.albumArrayList.clear();
+        this.albumArrayList.addAll(activeUser.getAlbumsList());
     }
 }

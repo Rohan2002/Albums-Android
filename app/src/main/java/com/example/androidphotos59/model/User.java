@@ -15,7 +15,7 @@ import java.io.File;
  * This class will store the user schema.
  * This password is currently stored in plain-text format. One future improvement
  * will be to add some encryption to the password string.
- * 
+ *
  * @author Rohan Deshpande, Saman Sathenjeri
  * @version 1.0
  */
@@ -35,6 +35,7 @@ public class User implements Serializable {
         this.userDataDirectory = userDataDirectory;
         this.albums = new ArrayList<>();
         this.activeAlbum = null;
+        getUserFromDisk();
     }
 
     public ArrayList<Album> getAlbums() {
@@ -55,7 +56,7 @@ public class User implements Serializable {
 
     /**
      * Getter for activeAlbum
-     * 
+     *
      * @return active album state
      */
     public Album getActiveAlbum() {
@@ -64,26 +65,26 @@ public class User implements Serializable {
 
     /**
      * Setter for the activeAlbum
-     * 
+     *
      * @param setAlbum
      */
     public void setActiveAlbum(Album setAlbum) {
         this.activeAlbum = setAlbum;
+        saveUserToDisk(this);
     }
 
     /*
      * Getter for List of Albums for an User
-     * 
+     *
      * @return albums
      */
     public ArrayList<Album> getAlbumsList() {
-        getUserFromDisk();
         return this.albums;
     }
 
     /**
      * Setter for List of Albums for an User
-     * 
+     *
      * @param albums
      */
     public void setAlbumsList(ArrayList<Album> albums) {
@@ -92,7 +93,7 @@ public class User implements Serializable {
 
     /**
      * Finds duplicate Array Names
-     * 
+     *
      * @param albumName
      */
     public boolean duplicateAlbumName(String albumName) {
@@ -142,6 +143,27 @@ public class User implements Serializable {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Helper to update a photo from the list of albums
+     *
+     * @param album
+     */
+    public boolean addPhoto(Photo newPhoto) {
+        getUserFromDisk();
+        if(!this.activeAlbum.addPhoto(newPhoto)){
+            return false;
+        }
+        int indexOfActiveAlbum = this.albums.indexOf(this.activeAlbum);
+
+        if (indexOfActiveAlbum == -1){
+            return false;
+        }
+        else{
+            this.albums.set(indexOfActiveAlbum, this.activeAlbum);
+        }
+        return saveUserToDisk(this);
     }
 
     /**

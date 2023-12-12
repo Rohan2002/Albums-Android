@@ -20,12 +20,12 @@ public class Album implements Serializable {
     /**
      * Name of the Album
      */
-    public String albumName;
+    private String albumName;
 
     /**
      * List of Photos in an album
      */
-    public ArrayList<Photo> photos = new ArrayList<Photo>();
+    private ArrayList<Photo> photos;
 
     /**
      * Constructor
@@ -41,6 +41,7 @@ public class Album implements Serializable {
      */
     public Album(String albumName) {
         this.albumName = albumName;
+        this.photos = new ArrayList<>();
     }
 
     /**
@@ -66,12 +67,12 @@ public class Album implements Serializable {
      *
      * @param photo
      */
-    public void addPhoto(Photo photo) {
+    public boolean addPhoto(Photo photo) {
         if (!this.duplicatePhoto(photo)) {
             this.getPhotosInAlbum().add(photo);
+            return true;
         } else {
-//            ErrorMessage.showError(ErrorCode.AUTHERROR, "Duplicate Photo",
-//                    "Choose Another Photo");
+            return false;
         }
     }
 
@@ -80,10 +81,8 @@ public class Album implements Serializable {
      *
      * @param photo
      */
-    public void deletePhoto(Photo photo) {
-        if (this.getPhotosInAlbum().contains(photo)) {
-            this.getPhotosInAlbum().remove(photo);
-        }
+    public boolean deletePhoto(Photo photo) {
+        return this.getPhotosInAlbum().remove(photo);
     }
 
     /**
@@ -116,47 +115,8 @@ public class Album implements Serializable {
         this.albumName = albumName;
     }
 
-    /**
-     * Helper to get min and max dates in an album
-     *
-     * @return dates
-     */
-    public String getAlbumDateRange() {
-        if (photos == null || (photos != null && photos.size() < 1)) {
-            return "N/A";
-        }
-        return getMinDate() + " - " + getMaxDate();
-    }
 
-    /**
-     * Helper to get min date in an album
-     *
-     * @return date
-     */
-    public String getMinDate() {
-        Date date = photos.get(0).date;
-        for (int i = 1; i < photos.size(); i++) {
-            if (photos.get(i).date.before(date)) {
-                date = photos.get(i).date;
-            }
-        }
-        return dateToString(date);
-    }
 
-    /**
-     * Helper to get min and max dates in an album
-     *
-     * @return date
-     */
-    public String getMaxDate() {
-        Date date = photos.get(0).date;
-        for (int i = 1; i < photos.size(); i++) {
-            if (photos.get(i).date.after(date)) {
-                date = photos.get(i).date;
-            }
-        }
-        return dateToString(date);
-    }
 
     /**
      * Override of dateToString for dates
@@ -233,16 +193,6 @@ public class Album implements Serializable {
     public String toString() {
         // TODO Auto-generated method stub
         return this.albumName;
-    }
-
-    public Album searchByDate(Date date) {
-        Album returnAlbum = new Album();
-        for (int i = 0; i < photos.size(); i++) {
-            if (photos.get(i).date.equals(date)) {
-                returnAlbum.addPhoto(photos.get(i));
-            }
-        }
-        return returnAlbum;
     }
 
     /**
