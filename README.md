@@ -11,3 +11,9 @@ If you are having trouble seeing the photos that share your tag query, collapse 
 
 ///To Move Photos between Albums///
 Type in the name of the album that you want your photo to move to
+
+//The tag format//
+location="name-of-location"
+name="name-of-person"
+
+Any other tag is not possible
