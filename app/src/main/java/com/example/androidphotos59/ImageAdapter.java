@@ -2,6 +2,7 @@ package com.example.androidphotos59;
 
 // ImageAdapter.java
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +42,8 @@ public class ImageAdapter extends ArrayAdapter<Photo> {
 
         if (currentItem != null) {
             Uri u = Uri.parse(currentItem.getFile()); // possible parse error handle.
+            context.getContentResolver().takePersistableUriPermission(u, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            context.getContentResolver().takePersistableUriPermission(u, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             imageView.setImageURI(u);
             textView.setText(currentItem.setTagsToString());
         }

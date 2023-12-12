@@ -116,18 +116,18 @@ public class PhotoActivity extends AppCompatActivity {
                 ToastMessage.showToast(this, "Cannot add photo Successfully!");
                 return;
             }
-            final int takeFlags = data.getFlags()
-                    & (Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
-            try {
-                this.getContentResolver().takePersistableUriPermission(selectedImageUri, takeFlags);
-            }
-            catch (SecurityException e){
-                System.out.println("Blackbox security issue");
-                e.printStackTrace();
-                return;
-            }
+//            int takeFlags = data.getFlags()
+//                    & (Intent.FLAG_GRANT_READ_URI_PERMISSION
+//                    | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//
+//            try {
+//                this.getContentResolver().takePersistableUriPermission(selectedImageUri, takeFlags);
+//            }
+//            catch (SecurityException e){
+//                System.out.println("Blackbox security issue");
+//                e.printStackTrace();
+//                return;
+//            }
 
             Photo newPhoto = new Photo(selectedImageUri.toString());
             if (!this.activeUser.addPhoto(newPhoto)) {
