@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * Tag is a special string that will be associated with a Photo Object.
- * The format of a Tag is "name:value".
+ * The format of a Tag is "name=value".
  * 
  * @author Rohan Deshpande
  * @author Saman Sathenjeri
@@ -28,7 +28,7 @@ public class Tag implements Serializable {
      * @param totalTag
      */
     public Tag(String totalTag) {
-        String[] arrOfStr = totalTag.split(":", 2);
+        String[] arrOfStr = totalTag.split("=", 2);
         this.tagName = arrOfStr[0].trim();
         this.tagData = arrOfStr[1].trim();
     }
@@ -86,7 +86,7 @@ public class Tag implements Serializable {
      * @return
      */
     public String tagAsString() {
-        return this.getTagName() + ":" + this.getTagData();
+        return this.getTagName() + "=" + this.getTagData();
     }
 
     /**
@@ -94,7 +94,7 @@ public class Tag implements Serializable {
      */
     @Override
     public boolean equals(Object o) {
-        if (o == null || !(o instanceof Tag)) {
+        if (!(o instanceof Tag)) {
             return false;
         }
         Tag castO = (Tag) o;

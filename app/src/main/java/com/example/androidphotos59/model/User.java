@@ -145,14 +145,60 @@ public class User implements Serializable {
         }
     }
 
+    public boolean updatePhoto(Photo updatedPhoto) {
+        getUserFromDisk();
+        if(!this.activeAlbum.getPhotosInAlbum().contains(updatedPhoto)){
+            return false;
+        }
+        int indexOfUpdatePhoto = this.activeAlbum.getPhotosInAlbum().indexOf(updatedPhoto);
+
+        if (indexOfUpdatePhoto == -1){
+            return false;
+        }
+        else{
+            this.activeAlbum.getPhotosInAlbum().set(indexOfUpdatePhoto, updatedPhoto);
+        }
+
+        int indexOfActiveAlbum = this.albums.indexOf(this.activeAlbum);
+
+        if (indexOfActiveAlbum == -1){
+            return false;
+        }
+        else{
+            this.albums.set(indexOfActiveAlbum, this.activeAlbum);
+        }
+
+        return saveUserToDisk(this);
+    }
     /**
-     * Helper to update a photo from the list of albums
+     * Helper to add a photo to User Album fields.
      *
      * @param album
      */
     public boolean addPhoto(Photo newPhoto) {
         getUserFromDisk();
         if(!this.activeAlbum.addPhoto(newPhoto)){
+            return false;
+        }
+        int indexOfActiveAlbum = this.albums.indexOf(this.activeAlbum);
+
+        if (indexOfActiveAlbum == -1){
+            return false;
+        }
+        else{
+            this.albums.set(indexOfActiveAlbum, this.activeAlbum);
+        }
+        return saveUserToDisk(this);
+    }
+
+    /**
+     * Helper to delete a photo to User Album fields.
+     *
+     * @param album
+     */
+    public boolean deletePhoto(Photo newPhoto) {
+        getUserFromDisk();
+        if(!this.activeAlbum.deletePhoto(newPhoto)){
             return false;
         }
         int indexOfActiveAlbum = this.albums.indexOf(this.activeAlbum);

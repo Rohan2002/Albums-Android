@@ -17,7 +17,7 @@ public class ToastMessage {
      * @param content content of the error message (detailed)
      */
     public static void showToast(Context c, String content) {
-        Toast.makeText(c, content, Toast.LENGTH_LONG).show();
+        Toast.makeText(c, content, Toast.LENGTH_SHORT).show();
     }
 
 }

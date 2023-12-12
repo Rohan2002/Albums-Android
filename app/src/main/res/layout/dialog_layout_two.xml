@@ -8,12 +8,12 @@
         android:id="@+id/editTextDialogInputOne"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter text" />
+        android:hint="Enter old album name" />
 
     <EditText
         android:id="@+id/editTextDialogInputTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Enter text" />
+        android:hint="Enter new album name" />
 </LinearLayout>

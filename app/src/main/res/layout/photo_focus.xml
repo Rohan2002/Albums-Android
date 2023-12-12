@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTagName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter tag name (e.g. name=value)" />
+
+    <Button
+        android:id="@+id/addTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add tag" />
+
+    <Button
+        android:id="@+id/deleteTag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Tag" />
+
+    <Button
+        android:id="@+id/deletePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Photo" />
+</LinearLayout>

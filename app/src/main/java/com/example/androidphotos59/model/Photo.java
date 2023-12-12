@@ -73,8 +73,8 @@ public class Photo implements Serializable {
 	 *
 	 * @param tag
 	 */
-	public void addTag(Tag tag) {
-		this.getAllTags().add(tag);
+	public boolean addTag(Tag tag) {
+		return this.getAllTags().add(tag);
 	}
 
 	/**
@@ -82,8 +82,8 @@ public class Photo implements Serializable {
 	 *
 	 * @param tag
 	 */
-	public void removeTag(Tag tag) {
-		this.getAllTags().remove(tag);
+	public boolean removeTag(Tag tag) {
+		return this.getAllTags().remove(tag);
 	}
 
 	/**
@@ -115,5 +115,14 @@ public class Photo implements Serializable {
 	@Override
 	public String toString(){
 		return this.getFile();
+	}
+
+	@Override
+	public boolean equals(Object o){
+		if(!(o instanceof Photo)){
+			return false;
+		}
+		Photo other = (Photo) o;
+		return this.getFile().compareTo(other.getFile()) == 0;
 	}
 }
